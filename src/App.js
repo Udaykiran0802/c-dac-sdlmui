@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 
 import Login from "./Components/Login"
@@ -16,21 +16,21 @@ import './App.css'
 const App = () => {
   const [token, setToken] = useState();
 
-  if(!token) {
+    if(!token) {
     return <Login setToken={setToken} />
-  }
+   } 
 
 
 
   return(
     <BrowserRouter>
-  
-  <Routes>
-     <Route exact path="/" element={<Header/>}/>
+     
+    <Switch>
+    <Route exact path="/" element={<Header/>}/>
     <Route exact path="/login" element = {<Login/>} />
     <Route exact path = "/register" element = {<Register/>} />
     <Route exact path = "/cards" element = {<Cards/>}/>
-  </Routes>
+  </Switch>
       
    
   </BrowserRouter>

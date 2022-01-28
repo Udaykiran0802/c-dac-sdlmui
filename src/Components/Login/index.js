@@ -1,8 +1,8 @@
 import React, {useState} from  "react"
-
 import PropTypes from 'prop-types';
 
 import "./index.css"
+import Cookies from "js-cookie";
 
 
 const Login = ({ setToken }) =>  {
@@ -10,6 +10,8 @@ const Login = ({ setToken }) =>  {
   const [password, setPassword] = useState();
   console.log(username)
   console.log(password)
+  
+  
 
   const handleSubmit = async e => {
       e.preventDefault();
@@ -18,6 +20,18 @@ const Login = ({ setToken }) =>  {
         password
       });
       setToken(token);
+    }
+
+    const onSubmitSucess = (jwtToken,props) => {
+     // const {history} = props
+      
+      console.log("jwttoken",jwtToken)
+      const cookies =  Cookies.set('access_token', jwtToken, {expires: 30})
+      console.log("successful cookies:",  cookies)
+      // history.replace("/")
+      
+      
+
     }
 
 async function Login(event) {
@@ -29,7 +43,7 @@ async function Login(event) {
       };
   
       let formBody = [];
-  
+    
       for (let property in details) {
         let encodedKey = encodeURIComponent(property);
         let encodedValue = encodeURIComponent(details[property]);
@@ -39,7 +53,7 @@ async function Login(event) {
       formBody = formBody.join("&");
       console.log("FormBody: " + formBody);
       
-	const resp = await fetch("http://localhost:8000/auth/jwt/login", {
+	   const resp = await fetch("http://localhost:8000/auth/jwt/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -47,17 +61,24 @@ async function Login(event) {
           Accept: "application/json",
           crendentials: "include",
         },
-        body: formBody,
+        body: formBody
       });
+      
+
   
-     if (resp.ok) {
+     if (resp.ok === true) {
         const json = await resp.json();
-        const result = JSON.stringify(json);
-        console.log("Result: " + result);
+       // console.log("json",json.access_token);
+        // const data = JSON.stringify(json);
+        // console.log("data",data)
+        //console.log("access_token",data.access_token)
+        onSubmitSucess(json.access_token) 
+        
+       // console.log("Result: " + result);
       } else {
         console.log("Error: Invalid credentials");
         throw new Error();
-      }
+      } 
    
    }
    
@@ -95,4 +116,4 @@ export default Login
 
 Login.propTypes = {
     setToken: PropTypes.func.isRequired
-  }
+  } 
