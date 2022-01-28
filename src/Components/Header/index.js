@@ -16,7 +16,7 @@ const Header = props => {
       <div className="nav-content">
         <div className="nav-bar-mobile-logo-container">
         
-          <h1 className = "nav-bar-heading">Software Development Lifecycle Methodology (SDLMUI)</h1>
+          <h1 className = "nav-bar-heading">Secure Device Lifecycle Management (SDLMUI)</h1>
          
           <ul className="nav-bar-mobile-icons-container">
             
@@ -48,6 +48,11 @@ const Header = props => {
             <li className="nav-menu-item">
               <Link to="/login" className="nav-link">
                 Login
+              </Link>
+            </li>
+            <li className="nav-menu-item">
+              <Link to="/cards" className="nav-link">
+                cards
               </Link>
             </li>
           </ul>

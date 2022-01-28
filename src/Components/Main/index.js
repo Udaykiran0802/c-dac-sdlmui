@@ -1,4 +1,5 @@
 import "./index.css" 
+import  "bootstrap/dist/css/bootstrap-reboot.css"
 
 
 const  Main  = () => (
